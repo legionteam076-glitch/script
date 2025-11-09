@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZiroX Scripts - Free Resource Hub</title>
-    <!-- Replace CDN with local Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Lucide Icons correctly -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
@@ -25,11 +23,23 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--dark-bg);
-            background-image: radial-gradient(at 0% 0%, rgba(34, 197, 94, 0.05), transparent 70%),
-                              radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.05), transparent 70%);
+            background-image: 
+                url('https://cdn.discordapp.com/attachments/1367875717450174556/1437010205144780810/background.webp?ex=6911af8b&is=69105e0b&hm=2d1c0022ca6f38ad1fffcf8559666d0c8acf8083fa331bbd6e2419a320f48033&'),
+                radial-gradient(at 0% 0%, rgba(34, 197, 94, 0.05), transparent 70%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.05), transparent 70%);
+            background-blend-mode: overlay;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: var(--text-color);
             min-height: 100vh;
             overflow-x: hidden;
+        }
+
+        .glass-effect {
+            background: rgba(13, 13, 13, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .primary-btn {
@@ -115,6 +125,22 @@
             display: inline-flex;
             align-items: center;
         }
+
+        .category-btn {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .category-btn.active {
+            background-image: linear-gradient(45deg, var(--primary-start), var(--primary-end));
+            color: var(--dark-bg);
+            border-color: var(--primary-start);
+        }
+
+        .category-btn:hover:not(.active) {
+            border-color: var(--primary-start);
+            color: var(--primary-start);
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -180,13 +206,24 @@
                     console.error("Error getting scripts: ", error);
                     return [];
                 }
+            },
+
+            async getAllCategories() {
+                // Return the new categories
+                return [
+                    { name: "All Scripts", icon: "grid", count: 0 },
+                    { name: "System Scripts", icon: "settings", count: 0 },
+                    { name: "Server Backups", icon: "server", count: 0 },
+                    { name: "Skin Scripts", icon: "user", count: 0 },
+                    { name: "Vehicle Scripts", icon: "car", count: 0 }
+                ];
             }
         };
     </script>
 
     <div class="container mx-auto px-4 py-8 max-w-7xl">
 
-        <header class="mb-10 pt-4 bg-card-bg shadow-2xl rounded-xl border border-gray-800">
+        <header class="mb-10 pt-4 glass-effect shadow-2xl rounded-xl border border-gray-800">
             
             <nav class="flex items-center justify-center space-x-8 py-2 text-sm font-semibold uppercase border-b border-gray-800">
                 <a href="#home" class="nav-link transition-colors" data-page="home">
@@ -214,7 +251,7 @@
                     <a href="#" class="px-4 py-2 primary-btn rounded-lg text-sm font-bold flex items-center shadow-lg">
                         <i data-lucide="discord" class="inline-block w-4 h-4 mr-2"></i> JOIN DISCORD
                     </a>
-                    <a href="#" class="w-10 h-10 primary-btn rounded-lg flex items-center justify-center shadow-lg">
+                    <a href="" class="w-10 h-10 primary-btn rounded-lg flex items-center justify-center shadow-lg">
                         <i data-lucide="user-check" class="w-5 h-5"></i>
                     </a>
                 </div>
@@ -228,13 +265,13 @@
 
                     <aside class="lg:col-span-3 space-y-6">
 
-                        <div class="sidebar-panel">
+                        <div class="sidebar-panel glass-effect">
                             <h3 class="text-xs uppercase font-bold tracking-wider mb-4 text-secondary-text">TOP CONTRIBUTOR</h3>
                             <div class="flex items-center justify-between bg-card-bg p-3 rounded-lg border border-gray-700">
                                 <div class="flex items-center space-x-3">
                                     <div class="w-8 h-8 bg-primary-start/20 rounded-full flex items-center justify-center text-primary-start font-bold">B</div>
                                     <div>
-                                        <p class="font-bold text-sm">Loading...</p>
+                                        <p class="font-bold text-sm">ALVIN SR</p>
                                         <p class="text-xs text-secondary-text">Shared 5 resources this month</p>
                                     </div>
                                 </div>
@@ -244,7 +281,7 @@
                             </div>
                         </div>
 
-                        <div class="sidebar-panel">
+                        <div class="sidebar-panel glass-effect">
                             <h3 class="text-xs uppercase font-bold tracking-wider mb-4 text-secondary-text">RECENT DOWNLOADS</h3>
                             <div class="space-y-3 max-h-60 overflow-y-auto pr-1">
                                 <div class="text-center py-4 text-secondary-text">
@@ -254,7 +291,7 @@
                             </div>
                         </div>
                         
-                        <div class="sidebar-panel">
+                        <div class="sidebar-panel glass-effect">
                             <h3 class="text-xs uppercase font-bold tracking-wider mb-4 text-secondary-text">ANNOUNCEMENTS</h3>
                             <p class="text-sm text-secondary-text mb-3">Check the Discord for the latest updates on the new Character Creator script release!</p>
                             <div class="flex space-x-2">
@@ -267,7 +304,7 @@
 
                     <section class="lg:col-span-9 space-y-8">
                         
-                        <div class="bg-card-bg p-6 rounded-xl border border-gray-800 shadow-xl">
+                        <div class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl">
                             <h2 class="text-xl font-bold uppercase text-primary-start mb-2">WELCOME TO ZIRO X SCRIPTS</h2>
                             <p class="text-sm text-secondary-text">
                                 We are a community hub dedicated to providing top-notch, **completely free** FiveM resources. Our goal is high quality, optimization, and modern designs for everyone.
@@ -278,7 +315,7 @@
                             <h3 class="text-xl font-bold uppercase tracking-wider border-b border-gray-700 pb-2">COMMUNITY FEEDBACK</h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                                <div class="bg-sidebar-bg p-5 rounded-xl border border-gray-700 shadow-lg">
+                                <div class="glass-effect p-5 rounded-xl border border-gray-700 shadow-lg">
                                     <div class="flex items-center space-x-2 mb-3">
                                         <div class="w-8 h-8 bg-primary-start rounded-full"></div>
                                         <div>
@@ -297,7 +334,7 @@
                                     </p>
                                 </div>
                                 
-                                <div class="bg-sidebar-bg p-5 rounded-xl border border-gray-700 shadow-lg">
+                                <div class="glass-effect p-5 rounded-xl border border-gray-700 shadow-lg">
                                     <div class="flex items-center space-x-2 mb-3">
                                         <div class="w-8 h-8 bg-purple-400 rounded-full"></div>
                                         <div>
@@ -316,7 +353,7 @@
                                     </p>
                                 </div>
                                 
-                                <div class="bg-sidebar-bg p-5 rounded-xl border border-gray-700 shadow-lg">
+                                <div class="glass-effect p-5 rounded-xl border border-gray-700 shadow-lg">
                                     <div class="flex items-center space-x-2 mb-3">
                                         <div class="w-8 h-8 bg-blue-400 rounded-full"></div>
                                         <div>
@@ -343,11 +380,26 @@
             </div>
 
             <div id="scripts-page" class="page-view hidden">
-                <h2 class="text-2xl font-bold uppercase mb-6 tracking-wider border-b border-gray-700 pb-3 text-primary-start">Free Scripts Library</h2>
-                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="text-center py-8 text-secondary-text">
-                        <i data-lucide="loader" class="w-12 h-12 mx-auto mb-4 animate-spin"></i>
-                        <p>Loading scripts...</p>
+                <div class="flex flex-col lg:flex-row gap-6">
+                    <!-- Categories Sidebar -->
+                    <div class="lg:w-1/4">
+                        <div class="glass-effect p-6 rounded-xl border border-gray-800 shadow-xl sticky top-4">
+                            <h3 class="text-lg font-bold uppercase mb-4 text-primary-start">CATEGORIES</h3>
+                            <div class="space-y-2" id="categories-list">
+                                <!-- Categories will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scripts Grid -->
+                    <div class="lg:w-3/4">
+                        <h2 class="text-2xl font-bold uppercase mb-6 tracking-wider border-b border-gray-700 pb-3 text-primary-start">Free Scripts Library</h2>
+                        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+                            <div class="text-center py-8 text-secondary-text col-span-3">
+                                <i data-lucide="loader" class="w-12 h-12 mx-auto mb-4 animate-spin"></i>
+                                <p>Loading scripts...</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -356,21 +408,21 @@
                 <h2 class="text-2xl font-bold uppercase mb-8 tracking-wider border-b border-gray-700 pb-3 text-primary-start">Meet the Team</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     
-                    <div class="bg-card-bg p-6 rounded-xl shadow-xl text-center border border-gray-700">
+                    <div class="glass-effect p-6 rounded-xl shadow-xl text-center border border-gray-700">
                         <img src="https://cdn.discordapp.com/attachments/1410591541596262460/1436761633941618869/sunglasses-doge-meme-sticker-tshirt-600nw-2550084977.jpg?ex=6910c80b&is=690f768b&hm=8b0b2d0a9c77c66266442fce212923c674cea286ccaf76f56f83bfa2fe6b4a29&" alt="Avatar Popa" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-primary-start shadow-lg shadow-primary-start/30">
                         <h3 class="text-xl font-bold text-primary-start">Popa</h3>
                         <p class="text-sm uppercase text-gray-400 font-semibold mb-3">Founder & Lead Developer</p>
                         <p class="text-sm text-secondary-text">The architect behind our vision and the code that powers your server.</p>
                     </div>
 
-                    <div class="bg-card-bg p-6 rounded-xl shadow-xl text-center border border-gray-700">
+                    <div class="glass-effect p-6 rounded-xl shadow-xl text-center border border-gray-700">
                         <img src="https://cdn.discordapp.com/attachments/1367875717450174556/1394357460617269472/Capture.PNG?ex=6910c394&is=690f7214&hm=383a16241421223654f9d212105c3d3539feb5f66c57d7ead14530c9b5719ae5&" alt="Avatar Dev" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-gray-700">
                         <h3 class="text-xl font-bold">Thomas Shelby</h3>
                         <p class="text-sm uppercase text-gray-400 font-semibold mb-3">Lead Developer</p>
                         <p class="text-sm text-secondary-text">Our dedicated support ensuring smooth integration and troubleshooting.</p>
                     </div>
 
-                    <div class="bg-card-bg p-6 rounded-xl shadow-xl text-center border border-gray-700">
+                    <div class="glass-effect p-6 rounded-xl shadow-xl text-center border border-gray-700">
                         <img src="https://cdn.discordapp.com/attachments/1410591541596262460/1436763194701123625/8ypUzrVp_400x400.jpg?ex=6910c97f&is=690f77ff&hm=867a987073c670d7ed81b25f48c74b7006e0963cbdbfa196f868a5a7c69cf721&" alt="Avatar Artist" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-gray-700">
                         <h3 class="text-xl font-bold">Kenchi Shinoda</h3>
                         <p class="text-sm uppercase text-gray-400 font-semibold mb-3">3D Modeler</p>
@@ -394,13 +446,20 @@
         lucide.createIcons();
 
         let scripts = [];
+        let categories = [];
+        let currentCategory = 'All Scripts';
 
         async function loadScripts() {
             try {
                 scripts = await firebaseDb.getAllScripts();
+                categories = await firebaseDb.getAllCategories();
+                
+                // Update category counts
+                updateCategoryCounts();
+                renderCategories();
                 renderProducts();
             } catch (error) {
-                console.error("Error loading scripts:", error);
+                console.error("Error loading data:", error);
                 document.getElementById('product-grid').innerHTML = `
                     <div class="col-span-3 text-center py-8 text-secondary-text">
                         <i data-lucide="alert-circle" class="w-12 h-12 mx-auto mb-4"></i>
@@ -411,30 +470,74 @@
             }
         }
 
+        function updateCategoryCounts() {
+            categories.forEach(category => {
+                if (category.name === 'All Scripts') {
+                    category.count = scripts.length;
+                } else {
+                    category.count = scripts.filter(script => script.category === category.name).length;
+                }
+            });
+        }
+
+        function renderCategories() {
+            const categoriesList = document.getElementById('categories-list');
+            if (!categoriesList) return;
+
+            categoriesList.innerHTML = categories.map(category => `
+                <button class="category-btn w-full text-left p-3 rounded-lg transition-all duration-300 ${
+                    currentCategory === category.name ? 'active' : 'bg-card-bg hover:bg-gray-800'
+                }" onclick="setCategory('${category.name}')">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <i data-lucide="${category.icon}" class="w-4 h-4"></i>
+                            <span class="font-semibold">${category.name}</span>
+                        </div>
+                        <span class="bg-gray-700 text-xs px-2 py-1 rounded-full">${category.count}</span>
+                    </div>
+                </button>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        function setCategory(categoryName) {
+            currentCategory = categoryName;
+            renderCategories();
+            renderProducts();
+        }
+
         function renderProducts() {
             const grid = document.getElementById('product-grid');
             if (!grid) return;
 
-            if (scripts.length === 0) {
+            const filteredScripts = currentCategory === 'All Scripts' 
+                ? scripts 
+                : scripts.filter(script => script.category === currentCategory);
+
+            if (filteredScripts.length === 0) {
                 grid.innerHTML = `
                     <div class="col-span-3 text-center py-8 text-secondary-text">
                         <i data-lucide="package" class="w-12 h-12 mx-auto mb-4"></i>
-                        <p>No scripts available yet.</p>
-                        <p class="text-sm mt-2">Check back later or contact the administrator.</p>
+                        <p>No scripts available in ${currentCategory} category.</p>
+                        <p class="text-sm mt-2">Check back later or try another category.</p>
                     </div>
                 `;
                 lucide.createIcons();
                 return;
             }
 
-            grid.innerHTML = scripts.map(script => `
-                <div class="bg-card-bg rounded-xl overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-[1.02] hover:shadow-primary-start/40 border border-gray-700">
+            grid.innerHTML = filteredScripts.map(script => `
+                <div class="glass-effect rounded-xl overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-[1.02] hover:shadow-primary-start/40 border border-gray-700">
                     <img src="${script.img}" 
                          onerror="this.onerror=null;this.src='https://placehold.co/400x225/0f0f0f/888?text=Image+Not+Found'"
                          alt="${script.title}" class="w-full h-48 object-cover border-b border-gray-800">
 
                     <div class="p-4 flex flex-col">
-                        <h3 class="text-lg font-bold uppercase mb-1 truncate">${script.title}</h3>
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-lg font-bold uppercase truncate flex-1">${script.title}</h3>
+                            ${script.category ? `<span class="bg-primary-start/20 text-primary-start text-xs px-2 py-1 rounded-full ml-2">${script.category}</span>` : ''}
+                        </div>
                         <p class="text-xs text-secondary-text h-10 overflow-hidden mb-3">${script.description}</p>
 
                         <div class="flex items-center justify-between mt-auto pt-2 border-t border-gray-800">
